@@ -59,10 +59,8 @@ export async function getServerSideProps(context: any) {
 
 export default function Index({
   allMusicians,
-  isConnected,
 }: {
   allMusicians?: any;
-  isConnected: boolean;
 }) {
   const router = useRouter();
   const [concert, setConcert] = useState({} as any);

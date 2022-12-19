@@ -7,39 +7,16 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Link from "next/link";
-import { Alert, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { apiURL } from "../../lib/utils";
 
-export async function getServerSideProps(context: any) {
-  try {
-    let res = await fetch(`${process.env.BASE_URL}/concerts`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let concerts = (await res.json())?.concerts;
-
-    return {
-      props: { isConnected: true },
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { isConnected: false },
-    };
-  }
-}
-
-export default function Index({ isConnected }: { isConnected: boolean }) {
+export default function Index() {
   const [concerts, setConcerts] = useState([] as any);
 
   const handleDelete = async (id: string) => {
-    console.log(id);
     try {
       await fetch(`${apiURL}/concerts?id=${id}`, {
         method: "DELETE",
@@ -77,11 +54,11 @@ export default function Index({ isConnected }: { isConnected: boolean }) {
         }}
       >
         <h1>Symphony Orchestra Concerts</h1>
-        {isConnected ? (
+        {/* {isConnected ? (
           <Alert severity="success">You are connected to MongoDB</Alert>
         ) : (
           <Alert severity="error">Fetching data failed</Alert>
-        )}
+        )} */}
 
         <Link key={"create"} href={"/concerts/create"} passHref>
           <Button variant="contained" color={"primary"}>
